@@ -1,0 +1,15 @@
+/* 
+  localized.strings
+  Twitter_iOS_Clone
+
+  Created by Christian Schmutte on 02.04.20.
+  Copyright © 2020 Christian Schmutte. All rights reserved.
+*/
+"email_auth" = "Email";
+"password_auth" = "Password";
+"logInButton_auth" = "Log In";
+"dont_have_account_firstPart_auth" = "Don't have an account? ";
+"dont_have_account_secondPart_auth" = "Sign Up";
+"full_name_auth" = "Full Name";
+"username_auth" = "Username";
+"signUpButton_auth" = "Sign Up";
