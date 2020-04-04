@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -17,9 +18,33 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+        
+//        Auth.auth().createUser(withEmail: "P@gmail.com", password: "123456") { (res, err) in
+//            if let err = err {
+//                print(err.localizedDescription)
+//                
+//                return
+//            }
+//            guard let uid = res?.user.uid else { return }
+//            
+//            let values = ["email": "P@gmail.com",
+//                          "fullname" : "Jimmy"]
+//            
+//            
+//            REF_USERS.child(uid).updateChildValues(values) { (err, ref) in
+//                if let err = err {
+//                    print(err.localizedDescription)
+//                    print("BRRRRRnckjancjkdncjnfskjcn")
+//                }
+//                print("Reached Here..........")
+//            }
+//            
+//            print("Created user")
+//        }
+        
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
-        window?.rootViewController = UINavigationController(rootViewController: LoginController())
+        window?.rootViewController = MainTabController()
         window?.makeKeyAndVisible()
     }
 

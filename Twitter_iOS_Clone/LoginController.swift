@@ -21,15 +21,23 @@ class LoginController: UIViewController {
     }()
     
     private lazy var emailContainerView: UIView = {
-        let view = Utilities().inputContainerView(withImage: #imageLiteral(resourceName: "ic_mail_outline_white_2x-1"), textFieldName: NSLocalizedString("email_auth", comment: ""))
+        let view = Utilities().inputContainerView(withImage: #imageLiteral(resourceName: "ic_mail_outline_white_2x-1"), textField: emailTextField)
         return view
+    }()
+    
+    private let emailTextField: UITextField = {
+        let tf = Utilities().textField(withPlaceholder: NSLocalizedString("email_auth", comment: ""))
+        return tf
     }()
     
     private lazy var passwordContainerView: UIView = {
-        let view = Utilities().inputContainerView(withImage: #imageLiteral(resourceName: "ic_lock_outline_white_2x"), textFieldName: NSLocalizedString("password_auth", comment: ""), isPassword: true)
+        let view = Utilities().inputContainerView(withImage: #imageLiteral(resourceName: "ic_lock_outline_white_2x"), textField: passwordTextField)
         return view
     }()
-    
+    private let passwordTextField : UITextField = {
+        let tf = Utilities().textField(withPlaceholder: NSLocalizedString("password_auth", comment: ""), isPassword: true)
+        return tf
+    }()
     
     
     
@@ -54,7 +62,20 @@ class LoginController: UIViewController {
     // MARK: - Selectors
     
     @objc func logInButtonTrigger(_ sender: UIButton){
-        print(sender.currentTitle ?? "No title")
+        guard let email = emailTextField.text else { return }
+        guard let password = passwordTextField.text else { return }
+        
+        AuthService.shared.logUserIn(withEmail: email, withPassword: password) { (res, err) in
+            if let err = err {
+                print("DEBUG: Error Logging in: \(err.localizedDescription)")
+                return
+            }
+            guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
+            guard let tab = window.rootViewController as? MainTabController else { return }
+            tab.authenticateUserAndConfigureUI()
+            self.dismiss(animated: true, completion: nil)
+        }
+        
     }
     
     @objc func sendUserToSignUpPage(_ sender: UIButton){

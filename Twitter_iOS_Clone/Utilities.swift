@@ -9,16 +9,17 @@
 import UIKit
 
 class Utilities {
-    func inputContainerView(withImage image: UIImage, textFieldName: String, isPassword: Bool = false) -> UIView {
+    
+    func inputContainerView(withImage image: UIImage, textField: UITextField) -> UIView {
         let view = UIView()
         view.heightAnchor.constraint(equalToConstant: 50).isActive = true
         let iv = UIImageView(image: image)
         
         let dividerView = UIView()
         dividerView.backgroundColor = .white
-        let textField = self.textField(withPlaceholder: textFieldName, isPassword: isPassword)
         
-        [iv, textField, dividerView].forEach{ view.addSubview($0) }
+        
+        [iv, textField, dividerView].forEach{ view.addSubview($0 ) }
         
         iv.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, paddingLeft: 8, paddingBottom: 8)
         iv.setDimensions(width: 24, height: 24)
@@ -33,7 +34,7 @@ class Utilities {
         return view
     }
     
-    func textField(withPlaceholder placeholder: String, isPassword: Bool = false) -> UITextField{
+    func textField(withPlaceholder placeholder: String, isPassword: Bool = false) -> UITextField {
         let tf = UITextField()
         tf.textColor = .white
         tf.isSecureTextEntry = isPassword ? true : false

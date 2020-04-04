@@ -3,10 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14B827BF24387F33002328A4 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14B827BE24387F33002328A4 /* UserService.swift */; };
+		14BCF67A24371818003C9A80 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BCF67924371818003C9A80 /* Constants.swift */; };
+		14BCF67C243726B8003C9A80 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BCF67B243726B8003C9A80 /* AuthService.swift */; };
 		14E973312435AA82006F7C21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E973302435AA82006F7C21 /* AppDelegate.swift */; };
 		14E973332435AA82006F7C21 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14E973322435AA82006F7C21 /* SceneDelegate.swift */; };
 		14E973382435AA82006F7C21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 14E973362435AA82006F7C21 /* Main.storyboard */; };
@@ -29,6 +32,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		14B827BE24387F33002328A4 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		14BCF67924371818003C9A80 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		14BCF67B243726B8003C9A80 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		14E9732D2435AA82006F7C21 /* Twitter_iOS_Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Twitter_iOS_Clone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		14E973302435AA82006F7C21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		14E973322435AA82006F7C21 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +125,7 @@
 				14FE6A972435E15300FC7B0B /* Utilities.swift */,
 				14FE6A9D24361EAA00FC7B0B /* Localizable.strings */,
 				14FE6A9E24362CF900FC7B0B /* SuperViewController.swift */,
+				14BCF67924371818003C9A80 /* Constants.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -126,6 +133,8 @@
 		14E973472435AB17006F7C21 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				14BCF67B243726B8003C9A80 /* AuthService.swift */,
+				14B827BE24387F33002328A4 /* UserService.swift */,
 			);
 			name = API;
 			sourceTree = "<group>";
@@ -188,7 +197,6 @@
 				81EF011617AB982C68AC831D /* Pods-Twitter_iOS_Clone.debug.xcconfig */,
 				63EDE7B94D6467E3D8DD071F /* Pods-Twitter_iOS_Clone.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -320,6 +328,9 @@
 				14E973502435ADC2006F7C21 /* ExploreController.swift in Sources */,
 				14E973332435AA82006F7C21 /* SceneDelegate.swift in Sources */,
 				14E9734C2435ABF6006F7C21 /* MainTabController.swift in Sources */,
+				14BCF67A24371818003C9A80 /* Constants.swift in Sources */,
+				14B827BF24387F33002328A4 /* UserService.swift in Sources */,
+				14BCF67C243726B8003C9A80 /* AuthService.swift in Sources */,
 				14E9734E2435AD7B006F7C21 /* FeedController.swift in Sources */,
 				14E9735E2435D195006F7C21 /* LoginController.swift in Sources */,
 			);
@@ -474,8 +485,9 @@
 			baseConfigurationReference = 81EF011617AB982C68AC831D /* Pods-Twitter_iOS_Clone.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = N86N5735D2;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Twitter_iOS_Clone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -483,6 +495,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Christian-Schmutte.Twitter-iOS-Clone";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -493,8 +506,9 @@
 			baseConfigurationReference = 63EDE7B94D6467E3D8DD071F /* Pods-Twitter_iOS_Clone.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = N86N5735D2;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Twitter_iOS_Clone/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -502,6 +516,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Christian-Schmutte.Twitter-iOS-Clone";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
