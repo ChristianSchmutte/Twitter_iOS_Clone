@@ -13,5 +13,7 @@ target 'Twitter_iOS_Clone' do
   pod 'Firebase/Storage'
   pod 'Firebase/Auth'
   # add pods for any other desired Firebase products
-  # https://firebase.google.com/docs/ios/setup#available-pods 
+  # https://firebase.google.com/docs/ios/setup#available-pods
+  platform :ios, '8.0'
+  pod 'SDWebImage', '~> 5.0'
 end

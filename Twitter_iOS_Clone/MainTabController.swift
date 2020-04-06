@@ -8,10 +8,19 @@
 
 import UIKit
 import Firebase
+import SDWebImage
 
 class MainTabController: UITabBarController {
     
     // MARK: - Properties
+    var user: User? {
+        didSet{
+            print("DEBUG: Did set user in main tab..")
+            guard let nav = viewControllers?[0] as? UINavigationController else {return}
+            guard let feed = nav.viewControllers.first as? FeedController else { return }
+            feed.user = self.user
+        }
+    }
     
     let actionButton: UIButton = {
         let b = UIButton(type: .system)
@@ -37,7 +46,10 @@ class MainTabController: UITabBarController {
     // MARK: -API
     
     func fetchUser(){
-        UserService.shared.fetchUser()
+        guard let uid = Auth.auth().currentUser?.uid else {return}
+        UserService.shared.fetchUser(uid: uid ) { user in
+            self.user = user
+        }
     }
     
     func authenticateUserAndConfigureUI(){
@@ -66,7 +78,11 @@ class MainTabController: UITabBarController {
     // MARK: - Selectors
     
     @objc func actionButtonTapped(_ sender: UIButton) {
-        print(123)
+        guard let user = user else {return}
+        let nav = UINavigationController(rootViewController: UploadTweetViewController(user: user))
+        nav.modalPresentationStyle = .fullScreen
+        present(nav, animated: true, completion: nil)
+        
     }
     
 
@@ -84,7 +100,7 @@ class MainTabController: UITabBarController {
     }
     
     func configureViewControllers(){
-        let feed = FeedController()
+        let feed = FeedController(collectionViewLayout: UICollectionViewFlowLayout())
         let feedNav = templateNavigationController(image: UIImage(named: "home_unselected"), rootViewController: feed)
         let explore = ExploreController()
         let exploreNav = templateNavigationController(image: UIImage(named: "search_unselected"), rootViewController: explore)

@@ -11,17 +11,18 @@ import Firebase
 struct UserService {
     static let shared = UserService()
     
-    func fetchUser(){
+    func fetchUser(uid: String, completion: @escaping(User) -> Void){
         guard let uid = Auth.auth().currentUser?.uid  else {
             print("DEBUG: NO USER ID...")
             return
         }
         REF_USERS.child(uid).observeSingleEvent(of: .value) { snapshot in
-            print("DEBUG: snapshot is: \(snapshot)")
             guard let dictionary = snapshot.value as? [String : AnyObject] else { fatalError("Can't cast string") }
             
-            guard let username = dictionary["username"] as? String else {print("DEBUG: unable to reach username as string");return}
-            print("DEBUG: username is: \(username)")
+            let user = User(uid: uid, dictionary: dictionary)
+            print(user.fullname)
+            
+            completion(user)
         }
     }
 }
