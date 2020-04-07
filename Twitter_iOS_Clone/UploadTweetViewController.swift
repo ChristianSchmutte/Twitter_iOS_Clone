@@ -10,7 +10,9 @@ import UIKit
 
 class UploadTweetViewController: UIViewController {
     // MARK: -Properties
-    private let user: User
+    
+    private let profileImageUrl: URL
+    private let viewModel: UploadTweetViewModel
     
     private lazy var actionButton: UIButton = {
         let b = UIButton(type: .system)
@@ -37,8 +39,9 @@ class UploadTweetViewController: UIViewController {
     private let captionTextView: CaptionTextView = CaptionTextView()
     
     // MARK: -Lifecycle
-    init(user: User) {
-        self.user = user
+    init(imageUrl: URL) {
+        self.profileImageUrl = imageUrl
+        self.viewModel = UploadTweetViewModel()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -59,11 +62,14 @@ class UploadTweetViewController: UIViewController {
     }
     @objc func handleUploadTweet(){
         guard let caption = captionTextView.text else {return}
-        TweetService.shared.uploadTweet(caption: caption) { (error, ref) in
-            if let error = error {
-                print("DEBUG: Failed to upload tweet with error \(error.localizedDescription)")
-                return
-            }
+//        TweetService.shared.uploadTweet(caption: caption) { (error, ref) in
+//            if let error = error {
+//                print("DEBUG: Failed to upload tweet with error \(error.localizedDescription)")
+//                return
+//            }
+//            self.dismiss(animated: true, completion: nil)
+//        }
+        viewModel.uploadTweet(caption: caption) {
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -84,7 +90,7 @@ class UploadTweetViewController: UIViewController {
         stack.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor,
                                 paddingTop: 16, paddingLeft: 16, paddingRight: 16)
         profileImageView.layer.masksToBounds = true
-        profileImageView.sd_setImage(with: user.profileImageUrl, completed: nil)
+        profileImageView.sd_setImage(with: profileImageUrl, completed: nil)
     }
     
     func configureNavigationBar(){

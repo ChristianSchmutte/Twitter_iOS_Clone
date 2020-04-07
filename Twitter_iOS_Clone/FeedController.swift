@@ -9,12 +9,51 @@
 import UIKit
 import SDWebImage
 
-private let reuseIdentifier = "TweetCell"
+let reuseIdentifier = "TweetCell"
 
-class FeedController: UICollectionViewController {
+class FeedController: UICollectionViewController, FeedViewModelDelegate {
+    
+    
     // MARK: - Properties
     var user: User? {
         didSet{
+//            configureLeftBarButton()
+        }
+    }
+    var viewModel = FeedViewModel()  // = {
+//        didSet {
+//            viewModel?.fetchTweets(completion: { (caption, fullname, username, likes, retweets, timestamp, imageUrl) in
+//                let dict : [String:Any] = [
+//                    "caption" : caption,
+//                    "fullname" : fullname,
+//                    "username" : username,
+//                    "timestamp" : timestamp,
+//                    "likes" : likes,
+//                    "retweets" : retweets,
+//                    "profileImageUrl" : imageUrl
+//                ]
+//                print("DEBUG: Have completed fetching")
+//                self.cellCollection.append(dict)
+//            })
+//        }
+//    }()
+    var tweetDict : [[String : Any]] = [[String : Any]]() {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    private var username: String?
+    private var fullname: String?
+    private var profileImageUrl: URL?
+    public var userDict: [String:Any]? {
+        didSet {
+            print("DEBUG: Did set userDICT in FEED tab..")
+            guard let username = userDict?["username"]! as? String else {return}
+            guard let fullname = userDict?["fullname"]! as? String else {return}
+            guard let imageUrl = userDict?["profileImageUrl"]! as? URL else {return}
+            self.username = username
+            self.fullname = fullname
+            profileImageUrl = imageUrl
             configureLeftBarButton()
         }
     }
@@ -31,7 +70,8 @@ class FeedController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
-        fetchTweets()
+        viewModel.delegate = self as FeedViewModelDelegate
+        
     }
     
     // MARK: - API
@@ -41,6 +81,8 @@ class FeedController: UICollectionViewController {
             self.tweets = tweets
         }
     }
+    
+    
     
 
     // MARK: - Helpers
@@ -64,14 +106,14 @@ class FeedController: UICollectionViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: profileImageView)
     }
     func configureLeftBarButton(){
-        guard let user = user else { return }
+//        guard let user = user else { return }
         let profileImageView = UIImageView()
 //        profileImageView.backgroundColor = .twitterBlue
         profileImageView.setDimensions(width: 32, height: 32)
         profileImageView.layer.cornerRadius = 32 / 2
         profileImageView.layer.masksToBounds = true
         
-        profileImageView.sd_setImage(with: user.profileImageUrl) { (image, error, wasRetrieved, url) in
+        profileImageView.sd_setImage(with: profileImageUrl) { (image, error, wasRetrieved, url) in
             if let error = error {
                 print("Error Loading image: \(error.localizedDescription)")
                 return
@@ -86,11 +128,15 @@ class FeedController: UICollectionViewController {
 
 extension FeedController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tweets.count
+        
+        return tweetDict.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TweetCell
-        cell.tweet = tweets[indexPath.row]
+        
+        guard let tweetDict = tweetDict[indexPath.row] as? [String:Any] else { fatalError("DEBUG: No tweet dict") }
+        cell.delegate = self as TweetCellDelegate
+        cell.tweetDict = tweetDict
         return cell
     }
 }
@@ -99,5 +145,13 @@ extension FeedController {
 extension FeedController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 120)
+    }
+}
+
+extension FeedController: TweetCellDelegate {
+    func handleProfileImageTapped(_ cell: TweetCell) {
+        guard let tweetID = cell.tweetDict!["tweetID"] as? String else {return}
+        let controller = ProfileController(collectionViewLayout: UICollectionViewFlowLayout())
+        navigationController?.pushViewController(controller, animated: true)
     }
 }

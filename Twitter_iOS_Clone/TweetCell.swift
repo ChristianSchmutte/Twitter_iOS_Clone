@@ -9,20 +9,45 @@
 import UIKit
 import SDWebImage
 
+protocol TweetCellDelegate: class {
+    func handleProfileImageTapped(_ cell: TweetCell)
+}
+
 class TweetCell: UICollectionViewCell {
     
     // MARK: - Properties
-    var tweet: Tweet? {
-        didSet { configure() }
+//    var tweet: Tweet? {
+//        didSet {
+////            configure()
+//
+//        }
+//    }
+    weak var delegate: TweetCellDelegate?
+    
+    var tweetDict: [String:Any]? {
+        didSet {
+            configure()
+        }
     }
     
-    private let profileImageView: UIImageView = {
+    private lazy var profileImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         iv.setDimensions(width: 48, height: 48)
         iv.layer.cornerRadius = 48 / 2
         iv.backgroundColor = .twitterBlue
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleProfileImageTapped))
+        iv.addGestureRecognizer(tap)
+        iv.isUserInteractionEnabled = true
         return iv
+    }()
+    
+    private let dateFormatter: DateComponentsFormatter = {
+        let formatter = DateComponentsFormatter()
+        formatter.allowedUnits = [.second, .minute, .hour, .day, .weekOfMonth]
+        formatter.maximumUnitCount = 1
+        formatter.unitsStyle = .abbreviated
+        return formatter
     }()
     
     private let captionLabel: UILabel = {
@@ -112,6 +137,10 @@ class TweetCell: UICollectionViewCell {
     
     // MARK: - Selectors
     
+    @objc func handleProfileImageTapped(){
+        delegate?.handleProfileImageTapped(self)
+    }
+    
     @objc func handleCommentTapped(){
         
     }
@@ -128,15 +157,34 @@ class TweetCell: UICollectionViewCell {
     // MARK: - Helpers
     
     func configure(){
-        guard let tweet = tweet else {return}
-        let viewModel = TweetViewModel(tweet: tweet)
-        captionLabel.text = tweet.caption
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        let date = dateFormatter.string(from: tweet.timestamp)
-        infoLabel.attributedText = viewModel.userInfoText
+        
+        guard let tweetDict = tweetDict else {return}
+        guard let tweetCaption = tweetDict["caption"] as? String else {return}
+        guard let tweetFullname = tweetDict["fullname"] as? String else {return}
+        guard let tweetUsername = tweetDict["username"] as? String else {return}
+        guard let tweetImageUrl = tweetDict["profileImageUrl"] as? URL else {return}
+        guard let tweetTimestamp = tweetDict["timestamp"] as? Date else {return}
+        
+        let now = Date()
+        
+        guard let date = dateFormatter.string(from: tweetTimestamp, to: now) else { return }
+        var userInfoText: NSAttributedString {
+            let title = NSMutableAttributedString(string: tweetFullname, attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14)])
+            title.append(NSAttributedString(string: " @\(tweetUsername) ",
+                attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14),
+                             NSAttributedString.Key.foregroundColor : UIColor.lightGray]))
+            title.append(NSAttributedString(string: "・ \(date)", attributes: [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14),
+            NSAttributedString.Key.foregroundColor : UIColor.lightGray]))
+            return title
+            
+
+        }
+        
+        captionLabel.text = tweetCaption
+        
+        infoLabel.attributedText = userInfoText
         profileImageView.layer.masksToBounds = true
-        profileImageView.sd_setImage(with: viewModel.profileImageUrl, completed: nil)
+        profileImageView.sd_setImage(with: tweetImageUrl, completed: nil)
         
         
     }

@@ -16,8 +16,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "83"
             endingLineNumber = "83"
-            landmarkName = "signUpButtonTrigger(_:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -32,8 +32,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "97"
             endingLineNumber = "97"
-            landmarkName = "signUpButtonTrigger(_:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -48,8 +48,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "102"
             endingLineNumber = "102"
-            landmarkName = "signUpButtonTrigger(_:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
             <Locations>
                <Location
                   uuid = "A665E74F-13F6-4E6D-B92A-551C2FD9D68E - 6db5b5456607583b"
@@ -96,8 +96,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "154"
             endingLineNumber = "154"
-            landmarkName = "imagePickerController(_:didFinishPickingMediaWithInfo:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -112,8 +112,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "95"
             endingLineNumber = "95"
-            landmarkName = "signUpButtonTrigger(_:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
             <Locations>
                <Location
                   uuid = "FEC5C3F2-CB1E-4A93-80DF-BECFC8ADC77B - f3d939b130e6521a"
@@ -160,8 +160,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "98"
             endingLineNumber = "98"
-            landmarkName = "signUpButtonTrigger(_:)"
-            landmarkType = "7">
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -302,10 +302,10 @@
             filePath = "Twitter_iOS_Clone/MainTabController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "logUserOut()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -318,10 +318,10 @@
             filePath = "Twitter_iOS_Clone/MainTabController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "74"
-            endingLineNumber = "74"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "87"
+            endingLineNumber = "87"
+            landmarkName = "logUserOut()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -481,6 +481,54 @@
             startingLineNumber = "22"
             endingLineNumber = "22"
             landmarkName = "fetchUser(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "470ECA28-7DA8-40E5-AEDC-DDBAEB876DB3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Twitter_iOS_Clone/FeedController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
+            landmarkName = "collectionView(_:numberOfItemsInSection:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "51FDDC7E-0A0D-4D6A-B8AE-2CF3C27F0112"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Twitter_iOS_Clone/FeedController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A8A3736F-EC03-4F1A-90B8-ECE1B10F800A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Twitter_iOS_Clone/FeedController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
+            landmarkName = "collectionView(_:cellForItemAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

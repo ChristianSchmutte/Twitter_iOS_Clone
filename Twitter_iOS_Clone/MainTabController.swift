@@ -12,13 +12,24 @@ import SDWebImage
 
 class MainTabController: UITabBarController {
     
+    public let viewModel = MainTabViewModel()
+    
     // MARK: - Properties
-    var user: User? {
+    var userWhichWasWrong: User? {
         didSet{
             print("DEBUG: Did set user in main tab..")
             guard let nav = viewControllers?[0] as? UINavigationController else {return}
             guard let feed = nav.viewControllers.first as? FeedController else { return }
-            feed.user = self.user
+            feed.user = self.userWhichWasWrong
+        }
+    }
+    
+    var userDict : [String : Any]? {
+        didSet {
+            print("DEBUG: Did set userDICT in main tab..")
+            guard let nav = viewControllers?[0] as? UINavigationController else {return}
+            guard let feed = nav.viewControllers.first as? FeedController else { return }
+            feed.userDict = userDict
         }
     }
     
@@ -38,6 +49,7 @@ class MainTabController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 //        logUserOut()
+        print(viewModel.authenticateUser())
         
         authenticateUserAndConfigureUI()
         
@@ -45,15 +57,10 @@ class MainTabController: UITabBarController {
     
     // MARK: -API
     
-    func fetchUser(){
-        guard let uid = Auth.auth().currentUser?.uid else {return}
-        UserService.shared.fetchUser(uid: uid ) { user in
-            self.user = user
-        }
-    }
+
     
     func authenticateUserAndConfigureUI(){
-        if Auth.auth().currentUser == nil {
+        if viewModel.authenticateUser() {
             DispatchQueue.main.async {
                 let nav = UINavigationController(rootViewController: LoginController())
                 nav.modalPresentationStyle = .fullScreen
@@ -63,7 +70,13 @@ class MainTabController: UITabBarController {
         } else {
             configureViewControllers()
             configureUI()
-            fetchUser()
+            viewModel.fetchUser { (fullname, username, imageURL) in
+                var dict = [String : Any]()
+                dict["fullname"] = fullname
+                dict["username"] = username
+                dict["profileImageUrl"] = imageURL
+                self.userDict = dict
+            }
         }
     }
     
@@ -78,8 +91,9 @@ class MainTabController: UITabBarController {
     // MARK: - Selectors
     
     @objc func actionButtonTapped(_ sender: UIButton) {
-        guard let user = user else {return}
-        let nav = UINavigationController(rootViewController: UploadTweetViewController(user: user))
+        
+        guard let imageUrl = userDict?["profileImageUrl"] as? URL else {return}
+        let nav = UINavigationController(rootViewController: UploadTweetViewController(imageUrl: imageUrl))
         nav.modalPresentationStyle = .fullScreen
         present(nav, animated: true, completion: nil)
         
